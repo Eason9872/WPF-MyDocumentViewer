@@ -28,9 +28,7 @@
                     <Image Height="32" Width="32" Source="img/trash.png"/>
                 </Button>
                 <Separator/>
-                <Button Content="剪下" Command="ApplicationCommands.Cut" CommandTarget="{Binding ElementName=MainRichTextBox}"/>
-                <Button Content="複製" Command="ApplicationCommands.Copy" CommandTarget="{Binding ElementName=MainRichTextBox}"/>
-                <Button Content="貼上" Command="ApplicationCommands.Paste" CommandTarget="{Binding ElementName=MainRichTextBox}"/>
+                
             </ToolBar>
             <ToolBar x:Name="EditingToolbar" Height="40" Background="#FFEEDDAC">
                 <ToggleButton x:Name="BoldButton" Height="38" Width="38" ToolTip="粗體" Command="EditingCommands.ToggleBold" CommandTarget="{Binding ElementName=MainRichTextBox}">
