@@ -1,0 +1,57 @@
+﻿<Window x:Class="_2026_WpfApp4.MyDocumentViewer"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:_2026_WpfApp4"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        mc:Ignorable="d"
+        Title="MyDocumentViewer" Height="560" Width="1050" MinWidth="850" MinHeight="350" Closing="Window_Closing">
+    <Window.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.New" Executed="NewCommand_Executed"/>
+        <CommandBinding Command="ApplicationCommands.Open" Executed="OpenCommand_Executed"/>
+        <CommandBinding Command="ApplicationCommands.Save" Executed="SaveCommand_Executed"/>
+    </Window.CommandBindings>
+    <DockPanel>
+        <ToolBarTray VerticalAlignment="Top" DockPanel.Dock="Top" Background="Aqua">
+            <ToolBar x:Name="ApplicationToolbar" Height="40" Background="Beige">
+                <Button x:Name="NewButton" Height="38" Width="38" Command="ApplicationCommands.New" ToolTip="新增 (Ctrl+N)">
+                    <Image Height="32" Width="32" Source="img/new.png"/>
+                </Button>
+                <Button x:Name="OpenButton" Height="38" Width="38" Command="ApplicationCommands.Open" ToolTip="開啟 (Ctrl+O)">
+                    <Image Height="32" Width="32" Source="img/open.png"/>
+                </Button>
+                <Button x:Name="SaveButton" Height="38" Width="38" Command="ApplicationCommands.Save" ToolTip="儲存 (Ctrl+S)">
+                    <Image Height="32" Width="32" Source="img/save.png"/>
+                </Button>
+                <Button x:Name="TrashButton" Height="38" Width="38" Click="ClearButton_Click" ToolTip="清空文件" >
+                    <Image Height="32" Width="32" Source="img/trash.png"/>
+                </Button>
+                <Separator/>
+                <Button Content="剪下" Command="ApplicationCommands.Cut" CommandTarget="{Binding ElementName=MainRichTextBox}"/>
+                <Button Content="複製" Command="ApplicationCommands.Copy" CommandTarget="{Binding ElementName=MainRichTextBox}"/>
+                <Button Content="貼上" Command="ApplicationCommands.Paste" CommandTarget="{Binding ElementName=MainRichTextBox}"/>
+            </ToolBar>
+            <ToolBar x:Name="EditingToolbar" Height="40" Background="#FFEEDDAC">
+                <ToggleButton x:Name="BoldButton" Height="38" Width="38" ToolTip="粗體" Command="EditingCommands.ToggleBold" CommandTarget="{Binding ElementName=MainRichTextBox}">
+                    <Image Height="32" Width="32" Source="img/bold.png" />
+                </ToggleButton>
+                <ToggleButton x:Name="ItalicButton" Height="38" Width="38" ToolTip="斜體" Command="EditingCommands.ToggleItalic" CommandTarget="{Binding ElementName=MainRichTextBox}">
+                    <Image Height="32" Width="32" Source="img/italic.png" />
+                </ToggleButton>
+                <ToggleButton x:Name="UnderlineButton" Height="38" Width="38" ToolTip="底線" Command="EditingCommands.ToggleUnderline" CommandTarget="{Binding ElementName=MainRichTextBox}">
+                    <Image Height="32" Width="32" Source="img/underline.png" />
+                </ToggleButton>
+                <xctk:ColorPicker x:Name="FontColorPicker" Width="130" Height="38" ToolTip="文字顏色" SelectedColor="Black" SelectedColorChanged="FontColorPicker_SelectedColorChanged"/>
+                <ComboBox x:Name="FontFamilyComboBox" DisplayMemberPath="Source" ToolTip="字型" SelectionChanged="FontFamilyComboBox_SelectionChanged" HorizontalAlignment="Left" VerticalAlignment="Center" Width="150" Height="38" Margin="5,0,0,0"/>
+                <ComboBox x:Name="FontSizeComboBox" ToolTip="字體大小（WPF 單位）" SelectionChanged="FontSizeComboBox_SelectionChanged" HorizontalAlignment="Left" VerticalAlignment="Center" Width="65" Height="38" Margin="5,0,0,0"/>
+            </ToolBar>
+        </ToolBarTray>
+        <StatusBar Height="30" DockPanel.Dock="Bottom" Background="LightGray">
+            <StatusBarItem><TextBlock x:Name="StatusText" Text="就緒"/></StatusBarItem>
+        </StatusBar>
+        <RichTextBox x:Name="MainRichTextBox" Background="#FFEFEFEC" VerticalScrollBarVisibility="Auto" AcceptsTab="True" TextChanged="MainRichTextBox_TextChanged" SelectionChanged="MainRichTextBox_SelectionChanged">
+            <FlowDocument FontFamily="Microsoft JhengHei" FontSize="16"><Paragraph/></FlowDocument>
+        </RichTextBox>
+    </DockPanel>
+</Window>
